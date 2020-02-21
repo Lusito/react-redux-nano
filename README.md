@@ -117,7 +117,7 @@ export const App = () => (
 );
 ```
 
-### Report isssues
+### Report issues
 
 Something not working quite as expected? Do you need a feature that has not been implemented yet? Check the [issue tracker](https://github.com/Lusito/react-redux-nano/issues) and add a new one if your problem is not already listed. Please try to provide a detailed description of your problem, including the steps to reproduce it.
 
