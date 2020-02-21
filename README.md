@@ -8,7 +8,7 @@
 
 A simple, lightweight react-redux alternative, written in TypeScript.
 
-#### Why use this react-redux-nano
+#### Why use react-redux-nano
 
 - Very lightweight (see the badges above for the latest size).
 - All hooks are compatible to react-redux
