@@ -1,21 +1,35 @@
 {
-    "name": "react-redux-nano",
-    "version": "1.0.0",
-    "license": "ZLib",
-    "type": "module",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "scripts": {
-        "build": "tsc"
-    },
-    "devDependencies": {
-        "@types/react": "^16.9.22",
-        "react": "^16.12.0",
-        "redux": "^4.0.5",
-        "typescript": "^3.8.2"
-    },
-    "peerDependencies": {
-        "react": "^16.8.0",
-        "redux": "^4.0.0"
-    }
+  "name": "react-redux-nano",
+  "version": "1.0.0",
+  "license": "ZLib",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "npm run lint:es && npm run lint:package && npm run lint:style",
+    "lint:es": "eslint src/**/*.{ts,tsx} --ext .ts,.tsx --ignore-path .prettierignore",
+    "lint:es:fix": "npm run lint:es -- --fix",
+    "lint:fix": "npm run lint:es:fix && npm run lint:package:fix && npm run lint:style:fix",
+    "lint:package": "sort-package-json --check",
+    "lint:package:fix": "sort-package-json",
+    "lint:style": "npm run lint:style:base -- --check",
+    "lint:style:base": "prettier src/**/*.{ts,tsx,js,json} ./*.{ts,tsx,js,json}",
+    "lint:style:fix": "npm run lint:style:base -- --write"
+  },
+  "devDependencies": {
+    "@lusito/eslint-config-react": "^1.0.3",
+    "@lusito/prettier-config": "^1.0.0",
+    "@lusito/stylelint-config": "^1.0.0",
+    "@types/react": "^16.9.22",
+    "react": "^16.12.0",
+    "redux": "^4.0.5",
+    "rimraf": "^3.0.2",
+    "sort-package-json": "^1.40.0",
+    "typescript": "^3.8.2"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "redux": "^4.0.0"
+  }
 }

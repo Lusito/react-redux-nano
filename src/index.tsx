@@ -13,7 +13,7 @@ function useAndSetRef<T>(value: T) {
     const ref = useRef(value);
     ref.current = value;
     return ref;
-};
+}
 
 const ReduxContext = createContext<Store | null>(null);
 /** A provider receives a store and children */
@@ -26,22 +26,26 @@ export type ProviderProps = PropsWithChildren<{
  * The redux store provider
  * @param props store and children
  */
-export const Provider = ({ store, children }: ProviderProps) => <ReduxContext.Provider value={store}>{children}</ReduxContext.Provider>;
+export const Provider = ({ store, children }: ProviderProps) => (
+    <ReduxContext.Provider value={store}>{children}</ReduxContext.Provider>
+);
 
 /**
  * A hook to access the redux store
  * @throws When a `Provider` is missing.
  */
-export function useStore<S = any, A extends Action = AnyAction>() {
+export function useStore<TState = any, TAction extends Action = AnyAction>() {
     const store = useContext(ReduxContext);
     if (!store) {
         throw new Error("Could not find react redux context. Make sure you've added a Provider.");
     }
-    return store as unknown as Store<S, A>;
+    return (store as unknown) as Store<TState, TAction>;
 }
 
 /** Compare by reference */
-export function compareRef<T>(a: T, b: T) { return a === b; }
+export function compareRef<T>(a: T, b: T) {
+    return a === b;
+}
 
 /**
  * A hook to use a selector function to access redux state.
@@ -49,16 +53,18 @@ export function compareRef<T>(a: T, b: T) { return a === b; }
  * @param compare   The comparison function to use in order to only trigger a fresh render when something changed. Default compare by reference.
  * @throws When a `Provider` is missing.
  */
-export function useSelector<S = any, A extends Action = AnyAction, R = any>(selector: (state: S) => R, compare: (a: R, b: R) => boolean = compareRef) {
+export function useSelector<TState = any, TAction extends Action = AnyAction, TResult = any>(
+    selector: (state: TState) => TResult,
+    compare: (a: TResult, b: TResult) => boolean = compareRef
+) {
     const notify = useNotify();
-    const store = useStore<S, A>();
+    const store = useStore<TState, TAction>();
     const value = selector(store.getState());
     const lastCall = useAndSetRef({ selector, value });
     useLayoutEffect(() => {
         const listener = () => {
             const newValue = lastCall.current.selector(store.getState());
-            if (!compare(newValue, lastCall.current.value))
-                notify();
+            if (!compare(newValue, lastCall.current.value)) notify();
         };
         const unsubscribe = store.subscribe(listener);
         return () => unsubscribe();
@@ -70,6 +76,6 @@ export function useSelector<S = any, A extends Action = AnyAction, R = any>(sele
  * A hook to get the redux stores dispatch function.
  * @throws When a `Provider` is missing.
  */
-export function useDispatch<S = any, A extends Action = AnyAction>() {
-    return useStore<S, A>().dispatch;
+export function useDispatch<TState = any, TAction extends Action = AnyAction>() {
+    return useStore<TState, TAction>().dispatch;
 }
