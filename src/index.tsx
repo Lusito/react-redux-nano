@@ -1,13 +1,13 @@
 import React, { PropsWithChildren, createContext, useContext, useLayoutEffect, useReducer, useRef } from "react";
 import { Store, AnyAction, Action } from "redux";
 
-const reduceNotify = (state: boolean) => !state;
+const reduceNotify = (state: number) => state + 1;
 
 /**
  * A hook to trigger a fresh render of the calling react component
  * @returns A function to call when you want to trigger a fresh rendering of the component.
  */
-const useNotify = () => useReducer(reduceNotify, false)[1];
+const useNotify = () => useReducer(reduceNotify, 0)[1];
 /** A hook to create a reference and always set it to the new value. Used to avoid a fresh render on change */
 function useAndSetRef<T>(value: T) {
     const ref = useRef(value);
