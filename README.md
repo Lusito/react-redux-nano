@@ -1,4 +1,8 @@
-# react-redux-nano
+# Deprecated
+
+**WARNING:** This project has moved to [@react-nano/redux](https://github.com/lusito/react-nano)
+
+## react-redux-nano
 
 [![Minified + gzipped size](https://badgen.net/bundlephobia/minzip/react-redux-nano)](https://www.npmjs.com/package/react-redux-nano)
 [![NPM version](https://badgen.net/npm/v/react-redux-nano)](https://www.npmjs.com/package/react-redux-nano)
